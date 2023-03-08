@@ -6,6 +6,7 @@ Last update: 2023-02-24
 """
 
 import os
+import sys
 import shutil
 
 """
@@ -59,9 +60,21 @@ def first_file_path (folder_path):
     files = os.listdir(folder)
 
     for file in files:
+       if os.path.isdir(os.path.join(folder, file)):
+           files = os.listdir(os.path.join(folder, file))
+           break
+
+    for file in files:
         if os.path.isfile(os.path.join(folder, file)):
             file_path = os.path.join(folder, file)
             return file_path
-            break
 
-#new gen commit
+def next_folder(folder_path):
+    if os.path.isdir(folder_path):
+        files = os.listdir(folder_path)
+        for file in files:
+            if os.path.isdir(os.path.join(folder_path, file)):
+                return os.path.join(folder_path, file)
+        return None
+    return None
+
